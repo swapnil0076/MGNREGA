@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/MGNREGA/MGNREGA.iml" filepath="$PROJECT_DIR$/MGNREGA/MGNREGA.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/roomy-calendar-2610.iml" filepath="$PROJECT_DIR$/.idea/roomy-calendar-2610.iml" />
+    </modules>
+  </component>
+</project>
