@@ -149,17 +149,18 @@ public class ProjectDAO_Impl implements Project_DAO{
     }
 
     @Override
-    public String allocateTheProject(int gram_Member) throws ProjectException,GPMember_Exception {
+    public String allocateTheProject(int gram_Member,int projectId) throws ProjectException,GPMember_Exception {
 
         String mess = "Failed to Allocate the Project to Gram Panchayat Member";
 
         try(Connection con = dbutilities.getConnection()) {
 
-            String quarry = "Update project set GP_member_Id  = ? ";
+            String quarry = "Update project set GP_member_Id  = ? where projectId = ? ";
 
             PreparedStatement ps = con.prepareStatement(quarry);
 
             ps.setInt(1,gram_Member);
+            ps.setInt(2,projectId);
 
             int x = ps.executeUpdate();
 
@@ -206,5 +207,51 @@ public class ProjectDAO_Impl implements Project_DAO{
            e.getMessage();
         }
         return gp;
+    }
+
+    @Override
+    public List<Project> seeTheRemainProject() throws ProjectException {
+
+        List<Project> list= new ArrayList<>();
+        try(Connection con = dbutilities.getConnection()){
+            String quarry = "Select * from project Where GP_member_Id IS null";
+
+            PreparedStatement ps = con.prepareStatement(quarry);
+
+            ResultSet rs = ps.executeQuery();
+
+            while(rs.next()){
+
+                int x = rs.getInt("projectId");
+                String na = rs.getString("projectName");
+                String add = rs.getString("projectAddress");
+                int gp_Id = rs.getInt("gram_panchayat_Id");
+                int gpm_Id = rs.getInt("GP_member_Id");
+                int budget = rs.getInt("budget");
+                LocalDate start = rs.getDate("start").toLocalDate();
+                Date end = rs.getDate("end");
+
+                LocalDate localEndDate = null;
+                if (end != null) {
+                    localEndDate = end.toLocalDate();
+                }
+
+                String loc = rs.getString("location");
+                String status = rs.getString("status");
+
+                Project project1 = new Project(x,na,add,gp_Id,gpm_Id,budget,start,localEndDate,loc,status);
+
+                list.add(project1);
+
+
+            }
+
+        } catch (SQLException e) {
+            e.getMessage();
+            e.printStackTrace();
+        }
+
+
+        return list;
     }
 }

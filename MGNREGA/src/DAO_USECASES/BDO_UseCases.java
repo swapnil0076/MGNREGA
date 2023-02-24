@@ -47,7 +47,10 @@ public class BDO_UseCases {
 
         List<Project> pro = pdo.viewAllProject();
 
-        pro.forEach(System.out::println);
+
+            pro.forEach(System.out::println);
+
+
 
 
 
@@ -102,10 +105,10 @@ public class BDO_UseCases {
 
     }
 
-    public static void main(String[] args) throws ProjectException, GPMember_Exception {
+    public static void allocateTheporject() throws ProjectException, GPMember_Exception {
 
-        viewAllProjectUseCase();
 
+        RemainProject_UseCase();
         Scanner s = new Scanner(System.in);
 
         System.out.println("Enter the id of Project");
@@ -132,10 +135,23 @@ public class BDO_UseCases {
         System.out.println("Enter the Id of Gram Panchayat Member");
         int x = s.nextInt();
 
+        System.out.println("Enter the id of Project");
+        int j = s.nextInt();
+
         Project_DAO pdao = new ProjectDAO_Impl();
-        String mess = pdao.allocateTheProject(x);
+        String mess = pdao.allocateTheProject(x,j);
 
         System.out.println(mess);
+
+    }
+
+    public static void RemainProject_UseCase() throws ProjectException {
+
+        Project_DAO pdao = new ProjectDAO_Impl();
+
+        List<Project> pro = pdao.seeTheRemainProject();
+
+        pro.forEach(System.out::println);
 
     }
 
