@@ -9,6 +9,7 @@ import java.sql.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
 public class ProjectDAO_Impl implements Project_DAO{
     @Override
@@ -254,4 +255,38 @@ public class ProjectDAO_Impl implements Project_DAO{
 
         return list;
     }
+
+    @Override
+    public List<Project> employeeWorkingProject(int projectID) throws ProjectException {
+
+        List<Project> project = new ArrayList<>();
+
+        try(Connection con = dbutilities.getConnection()) {
+
+            PreparedStatement ps = con.prepareStatement("select p.projectId,p.projectName,p.status,w.wage from project p inner join wage w on w.projectId = p.projectId having projectId = ?");
+
+            ps.setInt(1,projectID);
+
+            ResultSet rs = ps.executeQuery();
+
+            while(rs.next()){
+                int x = rs.getInt("projectId");
+                String name = rs.getString("projectName");
+                String status = rs.getString("status");
+                int wage = rs.getInt("wage");
+
+                Project p2 = new Project(x,name,status,wage);
+                project.add(p2);
+            }
+
+
+        } catch (SQLException e) {
+            e.getMessage();
+        }
+
+
+        return project;
+    }
+
+
 }

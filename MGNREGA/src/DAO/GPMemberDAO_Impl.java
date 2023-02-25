@@ -16,8 +16,8 @@ import java.util.List;
 public class GPMemberDAO_Impl implements GPMember_DAO{
     @Override
 
-        public String LoginAsGPMember(int id, int password) throws GPMember_Exception {
-
+        public boolean LoginAsGPMember(int id, int password) throws GPMember_Exception {
+            boolean flag = false;
             String mess = "LogIn ID Not Found";
 
             try(Connection con = dbutilities.getConnection()) {
@@ -35,6 +35,9 @@ public class GPMemberDAO_Impl implements GPMember_DAO{
                     String add = rs.getString("GP_member_Address");
 
                     mess = "Welcome "+name+" "+"\n"+"Gram Panchayat ID "+x+"\n"+"Belong to Gram Panchayat "+add+" "+"Gram panchayat id "+pan;
+                    System.out.println(mess);
+                    return true;
+
                 }else{
                     throw new GPMember_Exception("Gram Panchayat Member not Found");
                 }
@@ -44,7 +47,7 @@ public class GPMemberDAO_Impl implements GPMember_DAO{
                 e.printStackTrace();
             }
 
-            return mess;
+            return false;
         }
 
     @Override
@@ -189,5 +192,31 @@ public class GPMemberDAO_Impl implements GPMember_DAO{
         return mess;
     }
 
+    @Override
+    public String ChangeStatusofProject(int project, String status) throws ProjectException {
 
+        String mess = "Project Not Found";
+
+        try (Connection con = dbutilities.getConnection()){
+
+            PreparedStatement ps = con.prepareStatement("Update project set status = ? where projectID = ?");
+            ps.setString(1,status);
+            ps.setInt(2,project);
+
+            int x = ps.executeUpdate();
+
+            if(x>0){
+                mess = "Project Status Updated";
+            }else{
+                throw new ProjectException("Check the details");
+            }
+
+        } catch (SQLException e) {
+            e.getMessage();
+        }
+
+        return mess;
     }
+
+
+}

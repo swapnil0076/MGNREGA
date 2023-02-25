@@ -1,10 +1,13 @@
 package DAO_USECASES;
 
 import BeanClass.Employee;
+import BeanClass.Project;
 import BeanClass.Wage;
 import Custom_Colors.Colors;
 import DAO.GPMemberDAO_Impl;
 import DAO.GPMember_DAO;
+import DAO.ProjectDAO_Impl;
+import DAO.Project_DAO;
 import Exception.*;
 
 import java.util.List;
@@ -12,7 +15,7 @@ import java.util.Scanner;
 
 public class GPMember_UseCases {
 
-    public static void GPMemberLogin_UseCases() throws GPMember_Exception {
+    public static boolean GPMemberLogin_UseCases() throws GPMember_Exception {
 
 
 
@@ -26,9 +29,14 @@ public class GPMember_UseCases {
 
         GPMember_DAO gpd = new GPMemberDAO_Impl();
 
-        String mess = gpd.LoginAsGPMember(x,pass);
+        boolean mess = gpd.LoginAsGPMember(x,pass);
 
-        System.out.println(mess);
+        if(mess){
+
+            return mess;
+        }else{
+            return false;
+        }
 
     }
 
@@ -107,7 +115,7 @@ public class GPMember_UseCases {
         System.out.println(mess);
     }
 
-    public static void main(String[] args) throws Employee_Exception {
+    public static void viewTotalNoDays() throws Employee_Exception {
 
         Scanner s = new Scanner(System.in);
 
@@ -118,6 +126,58 @@ public class GPMember_UseCases {
        String mess =  gdo.noOfDaysEmployee(m);
 
         System.out.println(mess);
+
+    }
+
+    public static void ChangeStatus_UseCase() throws ProjectException {
+
+        Scanner s = new Scanner(System.in);
+
+
+
+        System.out.println("Enter the Project Id");
+        int x = s.nextInt();
+
+        System.out.println("Select the Status");
+        System.out.println();
+        System.out.println("1. In Progress");
+        System.out.println("2. Completed");
+
+        String mess = "";
+        int choice = s.nextInt();
+
+        if(choice == 1){
+            mess = "In Progress";
+        } else if (choice == 2) {
+            mess = "Completed";
+        }else{
+            throw new ProjectException("Choose the correct");
+        }
+
+        GPMember_DAO gpd = new GPMemberDAO_Impl();
+       String med =  gpd.ChangeStatusofProject(x,mess);
+
+        System.out.println(med);
+
+    }
+
+    public static void WorkingProjectWage_UseCase() throws ProjectException {
+
+        Scanner s = new Scanner(System.in);
+
+        System.out.println("Enter the project Id");
+        int x = s.nextInt();
+
+        Project_DAO pdao = new ProjectDAO_Impl();
+
+        List<Project> pdm = pdao.employeeWorkingProject(x);
+
+        pdm.forEach(e -> System.out.println("╔═══════════════════════════╗\n"+"Project id -"+e.getProjectId()+"\n"+"Project Name -"+e.getProjectName()+"\n"+
+                "Status -"+e.getStatus()+"\n"+"Wages Amount -"+e.getWage()
+               +"\n"+
+                "╚════════════════════════════╝" ));
+
+
 
     }
 

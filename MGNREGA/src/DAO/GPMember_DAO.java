@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface GPMember_DAO {
 
-    public String LoginAsGPMember(int id ,int password) throws GPMember_Exception;
+    public boolean LoginAsGPMember(int id ,int password) throws GPMember_Exception;
     public String addEmployee(Employee employee) throws Employee_Exception;
 
     public List<Employee> ViewEmployee(int panchayatId) throws  Employee_Exception;
@@ -18,5 +18,7 @@ public interface GPMember_DAO {
     public String noOfDaysEmployee(int empId) throws Employee_Exception;
 
     public String employeeAttendence(Wage wage) throws Employee_Exception;
+
+    public String ChangeStatusofProject(int project,String status) throws ProjectException;
 
 }

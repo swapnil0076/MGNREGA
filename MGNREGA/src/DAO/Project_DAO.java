@@ -19,4 +19,7 @@ public interface Project_DAO {
 
     public List<Project> seeTheRemainProject() throws ProjectException;
 
+//     See List of Employee working on that Project and their wages.
+    public List<Project> employeeWorkingProject(int projectID) throws ProjectException;
+
 }

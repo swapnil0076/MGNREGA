@@ -16,6 +16,8 @@ public class Project {
     private String location;
     private String status;
 
+    private int wage;
+
     public Project() {};
 
     public Project(int projectId, String projectName, String projectAddress, int gram_panchayat_Id, int GP_member_Id, int budget, LocalDate start, LocalDate end, String location, String status) {
@@ -29,6 +31,25 @@ public class Project {
         this.end = end;
         this.location = location;
         this.status = status;
+    }
+
+    public Project(int projectId, String projectName, String status, int wage) {
+        this.projectId = projectId;
+        this.projectName = projectName;
+        this.status = status;
+        this.wage = wage;
+    }
+
+    public Project(int projectId, String projectName, String projectAddress, int gram_panchayat_Id, int GP_member_Id, int budget, String location, String status, int wage) {
+        this.projectId = projectId;
+        this.projectName = projectName;
+        this.projectAddress = projectAddress;
+        this.gram_panchayat_Id = gram_panchayat_Id;
+        this.GP_member_Id = GP_member_Id;
+        this.budget = budget;
+        this.location = location;
+        this.status = status;
+        this.wage = wage;
     }
 
     public Project(String projectName, String projectAddress, int gram_panchayat_Id, int budget, String location) {
@@ -64,6 +85,14 @@ public class Project {
 
     public String getProjectAddress() {
         return projectAddress;
+    }
+
+    public int getWage() {
+        return wage;
+    }
+
+    public void setWage(int wage) {
+        this.wage = wage;
     }
 
     public void setProjectAddress(String projectAddress) {
@@ -120,17 +149,17 @@ public class Project {
 
     @Override
     public String toString() {
-        return "Project{" +
-                "projectId=" + projectId +
-                ", projectName='" + projectName + '\'' +
-                ", projectAddress='" + projectAddress + '\'' +
-                ", gram_panchayat_Id=" + gram_panchayat_Id +
-                ", GP_member_Id=" + GP_member_Id +
-                ", budget=" + budget +
-                ", start=" + start +
-                ", end=" + end +
-                ", location='" + location + '\'' +
-                ", status='" + status + '\'' +
-                '}';
+        return"\n"+"╔═════════════════════════════════════════╗\n" +
+                "projectId=" + projectId +"\n"+
+                "projectName='" + projectName + '\'' +"\n"+
+                "projectAddress='" + projectAddress + "\n"+
+                "gram_panchayat_Id=" + gram_panchayat_Id +"\n"+
+                        "GP_member_Id=" + GP_member_Id +"\n"+
+                        "budget=" + budget +"\n"+
+                "start=" + start +"\n"+
+                        "end=" + end +"\n"+
+                        "location='" + location + '\'' +
+                "status='" + status + '\'' +"\n"+
+              "╚══════════════════════════════════════════╝"+"\n"    ;
     }
 }
