@@ -1,0 +1,238 @@
+                                                              Day_1
+
+
+create table project (
+
+projectId int primary key auto_increment,
+projectName varchar(25) not null,
+projectAddress varchar(25),
+gram_panchyat_Id int,
+GP_member_Id int,
+budjet int,
+start date not null,
+end date,
+location varchar(25)
+
+FOREIGN KEY (gram_panchyat_Id) REFERENCES Gram_panchayat (gram_panchyat_Id),
+FOREIGN KEY (GP_member_Id) REFERENCES Gram_panchayat_member (GP_member_id)
+);
+
+
+
+create table Gram_panchayat_member(
+
+GP_member_Id int primary key auto_increment,
+GP_member_Name varchar(25) not null,
+GP_member_Address varchar(25),
+GP_member_Password varchar(25) not null,
+gram_panchayat_Id int not null,
+FOREIGN KEY (gram_panchayat_Id) REFERENCES Gram_panchayat (gram_panchyat_Id)
+
+);
+
+
+
+create table Employee(
+
+empID int primary key auto_increment,
+EName varchar(25) not null,
+EAddress  varchar(25) not null,
+WageId varchar(25) not null,
+gram_panchayat_Id int not null,
+FOREIGN KEY (gram_panchayat_Id) REFERENCES Gram_panchayat (gram_panchyat_Id)
+);
+
+
+CREATE TABLE wage (
+  Wage_Id INT NOT NULL AUTO_INCREMENT,
+  employee_id INT NOT NULL,
+  projectId INT NOT NULL,
+  gram_panchayat_Id int not null,
+  wage_date DATE DEFAULT (CURRENT_DATE),
+  wage DECIMAL(10, 2) NOT NULL,
+  PRIMARY KEY (Wage_Id),
+  FOREIGN KEY (employee_id) REFERENCES employee(empID),
+  FOREIGN KEY (projectId) REFERENCES project(projectId)
+);
+
+
+CREATE TABLE project (
+  projectId INT PRIMARY KEY AUTO_INCREMENT,
+  projectName VARCHAR(25) NOT NULL,
+  projectAddress VARCHAR(25),
+  gram_panchayat_Id INT,
+  GP_member_Id INT,
+  budget INT,
+  start DATE NOT NULL DEFAULT (CURRENT_DATE),
+  end DATE,
+  location VARCHAR(25),
+  status ENUM('Not Started', 'In Progress', 'Completed') NOT NULL DEFAULT 'Not Started',
+  FOREIGN KEY (gram_panchayat_Id) REFERENCES Gram_panchayat (gram_panchyat_Id),
+  FOREIGN KEY (GP_member_Id) REFERENCES Gram_panchayat_member (GP_member_id)
+);
+
+INSERT INTO project (projectName, projectAddress, gram_panchyat_Id, GP_member_Id, budget, start, end, location)
+VALUES ('Road Construction', 'Main Street', 1, 3, 500000, '2022-03-01', '2022-06-30', 'Village A');
+
+INSERT INTO project (projectName, projectAddress, gram_panchyat_Id, GP_member_Id, budget, start, end, location)
+VALUES ('Water Supply', 'Kanakpura Road', 2, 4, 750000, '2022-04-01', '2022-09-30', 'Village B');
+
+INSERT INTO project (projectName, projectAddress, gram_panchyat_Id, GP_member_Id, budget, start, end, location)
+VALUES ('Sanitation', 'Main Street', 3, 5, 1000000, '2022-05-01', '2022-10-31', 'Village C');
+
+INSERT INTO project (projectName, projectAddress, gram_panchyat_Id, GP_member_Id, budget, start, end, location)
+VALUES ('Electricity Supply', 'Kanakpura Road', 4, 6, 500000, '2022-06-01', '2022-12-31', 'Village D');
+
+INSERT INTO project (projectName, projectAddress, gram_panchyat_Id, GP_member_Id, budget, start, end, location)
+VALUES ('Waste Management', 'Main Street', 5, 7, 1250000, '2022-07-01', '2023-01-31', 'Village E');
+
+INSERT INTO project (projectName, projectAddress, gram_panchyat_Id, GP_member_Id, budget, start, end, location)
+VALUES ('Public Park', 'Kanakpura Road', 6, 8, 800000, '2022-08-01', '2023-02-28', 'Village F');
+
+
+
+create table Gram_panchayat (
+gram_panchyat_Id int primary key auto_increment,
+gram_panchyat_Address int not null
+);
+
+
+ALTER TABLE Gram_panchayat
+ADD COLUMN gram_panchayat_name VARCHAR(50) NOT NULL;
+
+INSERT INTO Gram_panchayat (gram_panchayat_name, gram_panchyat_address)
+VALUES ('Example Gram Panchayat', '123');
+
+INSERT INTO Gram_panchayat (gram_panchayat_name, gram_panchyat_address)
+VALUES ('Greenfield Gram Panchayat', '456');
+
+INSERT INTO Gram_panchayat (gram_panchayat_name, gram_panchyat_address)
+VALUES ('Ruralville Gram Panchayat', '789');
+
+INSERT INTO Gram_panchayat (gram_panchayat_name, gram_panchyat_address)
+VALUES ('Meadowdale Gram Panchayat', '321');
+
+INSERT INTO Gram_panchayat (gram_panchayat_name, gram_panchyat_address)
+VALUES ('Sunset Valley Gram Panchayat', '654');
+
+INSERT INTO Gram_panchayat (gram_panchayat_name, gram_panchyat_address)
+VALUES ('Hometown Gram Panchayat', '987');
+
+
+
+create table Gram_panchayat_member(
+
+GP_member_Id int primary key auto_increment,
+GP_member_Name varchar(25) not null,
+GP_member_Address varchar(25),
+GP_member_Password varchar(25) not null,
+gram_panchayat_Id int not null,
+FOREIGN KEY (gram_panchayat_Id) REFERENCES Gram_panchayat (gram_panchyat_Id)
+
+);
+
+
+insert into Gram_panchayat_member(GP_member_Name,GP_member_Address,GP_member_Password,gram_panchayat_Id)
+values('John Doe', '123 Main', '123', 1);
+;
+
+insert into Gram_panchayat_member(GP_member_Name,GP_member_Address,GP_member_Password,gram_panchayat_Id)
+values('Jane Smith', '456', '456',2);
+;
+
+insert into Gram_panchayat_member(GP_member_Name,GP_member_Address,GP_member_Password,gram_panchayat_Id)
+values('Bob Johnson','789','789',3);
+;
+
+insert into Gram_panchayat_member(GP_member_Name,GP_member_Address,GP_member_Password,gram_panchayat_Id)
+values('Alice Brown','910','910',4);
+;
+
+insert into Gram_panchayat_member(GP_member_Name,GP_member_Address,GP_member_Password,gram_panchayat_Id)
+values('Mike Davis','112','112',5);
+;
+
+insert into Gram_panchayat_member(GP_member_Name,GP_member_Address,GP_member_Password,gram_panchayat_Id)
+values('Chandu','1213','1213',6);
+;
+
+insert into Gram_panchayat_member(GP_member_Name,GP_member_Address,GP_member_Password,gram_panchayat_Id) values(?,?,?,?);
+
+
+<----------------------------------------------------------------Project------------------------------------------------------->
+
+projectId         
+projectName      
+projectAddress    
+gram_panchayat_Id 
+GP_member_Id      
+budget            
+start             
+end               
+location         
+status
+
+Insert into project(projectName,projectAddress,budget,start,location)
+values (?,?,?,?,?);
+
+
+select p.projectId,p.projectName,p.status,w.wage from project p inner join wage w on w.projectId = p.projectId
+having projectId = 1;
+
+
+UPDATE project
+SET gram_panchyat_Id = (SELECT gram_panchyat_Id FROM gram_panchayat WHERE gram_panchyat_name = 'Example Gram Panchayat'),
+    GP_member_Id = (SELECT GP_member_Id FROM gram_panchayat_member WHERE GP_member_name = 'Example GP Member')
+WHERE projectId = 1;
+
+
+INSERT INTO project (projectName, projectAddress, budget, location)
+VALUES ('Road Construction', 'Main Street', 500000,'Village A');
+
+ALTER TABLE project ADD COLUMN location_Id varchar(5);
+INSERT INTO project (gram_panchayat_Id) VALUES (3);
+
+INSERT INTO project (gram_panchyat_Id) VALUES (3) WHERE projectId = 1;
+
+UPDATE project
+SET gram_panchayat_Id = 3
+WHERE projectId = 1;
+
+
+
+select g.GP_member_Id,g.GP_member_Name from Gram_panchayat_member g 
+inner join project p on g.gram_panchayat_Id = p.gram_panchayat_Id
+where g.gram_panchayat_Id = (select gram_panchayat_Id  from project where projectid = ?)
+;
+
+
+select gram_panchayat_Id  from project where projectid = 3;
+
+
+SELECT *
+FROM project
+WHERE GP_member_Id IS NULL;
+
+
+SELECT GP_member_Id, GP_member_Name, gram_panchayat_Id, GP_member_Address FROM gram_panchayat_member WHERE  GP_member_Id = 7 AND GP_member_Password = 1234;
+
+
+<Employee Tables>
+empID            
+EName             
+EAddress
+WageId  
+gram_panchayat_Id
+
+<Wage Table>
+
+-------------------+---------------+------+-----+-----------+-------------------+
+private int Wage_Id;         
+private int employee_id;    
+privaet int projectId;       
+private int gram_panchayat_Id;
+private LocalDate wage_date;     
+private int wage;
+
+mysqldump -u root -p Constructweek.sql
+

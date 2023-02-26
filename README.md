@@ -39,7 +39,10 @@ his/her data must be inserted into the system.</p>
 <li>Create Employee.</li>
 <li>View the Details of Employee.</li>
 <li>Assign Employee to a Project.</li>
-<li>View total number of days Employee worked in a project and also their wages</li>
+<li>View total number of days Employee worked in a project and also their wages</li><br>
 
+![Bl)](https://user-images.githubusercontent.com/58816804/221369689-a00d332c-da79-4d88-976a-c8f58ae1d791.png)<br>
+
+![Bl)](https://user-images.githubusercontent.com/58816804/221393969-643c6a46-8a35-41c3-92d0-cb2fe33421c8.png)
 
 </ul>
